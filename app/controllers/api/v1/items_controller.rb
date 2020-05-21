@@ -10,7 +10,7 @@ class Api::V1::ItemsController < Api::V1::BaseController
       )
     end
 
-    total_amount = items.inject(0){|sum,x| sum+x[:price]}
+    total_amount = items.inject(0){|sum,x| sum+x[:price]}.round(2)
     render json: { data: items, total_amount: total_amount }
   end
 end

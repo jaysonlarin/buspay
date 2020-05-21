@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import React from 'react';
+import { Field, Fields, reduxForm } from 'redux-form';
 import { SemanticToastContainer } from 'react-semantic-toasts';
+import "react-datepicker/dist/react-datepicker.css";
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
 
 class CheckoutForm extends React.Component {
@@ -27,12 +28,28 @@ class CheckoutForm extends React.Component {
     )
   };
 
+  renderFields = (fields) => {
+    return (
+      <div className="fields">
+        <div className={`input-row field ${fields.month.meta.touched && fields.month.meta.error ? 'error' : ''}`}>
+          <label>Month</label>
+          <input {...fields.month.input} type="text" placeholder='MM' />
+          {this.renderError(fields.month.meta)}
+        </div>
+        <div className={`input-row field ${fields.year.meta.touched && fields.year.meta.error ? 'error' : ''}`}>
+          <label>Year</label>
+          <input {...fields.year.input} type="text" placeholder='YYYY' />
+          {this.renderError(fields.year.meta)}
+        </div>
+      </div>
+    )
+  };
+
   onSubmit = (formValues) => {
     this.props.onSubmit(formValues);
   };
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <SemanticToastContainer />
@@ -49,7 +66,12 @@ class CheckoutForm extends React.Component {
             label="Enter cvc"
             placeholder="3-digit number"
           />
-          <button disabled={this.props.checkoutLoading} className={`ui button primary ${this.props.checkoutLoading ? 'loading' : ''}`}>Checkout</button>
+          <Fields names={[ 'month', 'year' ]} component={this.renderFields}/>
+
+          <br />
+          <div className="ui segment">
+            <button disabled={this.props.checkoutLoading} className={`ui button primary ${this.props.checkoutLoading ? 'loading' : ''}`}>Checkout</button>
+          </div>
         </form>
       </div>
     )
@@ -65,6 +87,27 @@ const validate = (formValues) => {
 
   if (!formValues.cvc) {
     errors.cvc = "You must enter a cvc";
+  }
+
+  if (!formValues.month) {
+    errors.month = "Invalid month";
+  }
+
+  if (formValues.month > 13 || formValues.month < 1 || (formValues.month && formValues.month.length < 2)) {
+    errors.month = "Invalid month"
+  }
+
+  if (!formValues.year) {
+    errors.year = "Invalid year";
+  }
+
+  if (formValues.year > 2025 || formValues.year < 2020) {
+    errors.year = "Invalid year"
+  }
+
+  var pattern = new RegExp(/[\d]{16}/g);
+  if (!pattern.test(formValues.card)) {
+    errors.card = 'Invalid credit card';
   }
 
   return errors;

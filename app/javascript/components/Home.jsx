@@ -1,24 +1,25 @@
 import React from "react";
-import { Link, Button } from "react-router-dom";
+import { Link } from "react-router-dom";
+import ModalLeave from './Leave';
+import { SemanticToastContainer } from 'react-semantic-toasts';
 
 class Home extends React.Component {
-  clickedLeave() {
-    console.log("left");
-  };
-
   render() {
     return (
-      <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
-        <div className="jumbotron jumbotron-fluid bg-transparent">
-          <div className="six wide column"></div>
-          <div className="six wide column">
-            <div className="ui large buttons">
-              <button className='ui button negative' onClick={this.clickedLeave}>Leave</button>
-              <div className="or"></div>
-              <Link to='/list' className='ui button positive'>Start</Link>
+      <div className="center-container">
+        <SemanticToastContainer />
+        <div className="center-position ui relaxed grid middle aligned">
+          <div className="three column row">
+            <div className="column"></div>
+            <div className="column flex-me">
+              <div className="ui large buttons">
+                <ModalLeave />
+                <div className="or"></div>
+                <Link to='/list' className='ui button positive'>Start</Link>
+              </div>
             </div>
+            <div className="column"></div>
           </div>
-          <div className="six wide column"></div>
         </div>
       </div>
     )

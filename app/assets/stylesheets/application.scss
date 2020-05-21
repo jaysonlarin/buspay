@@ -14,3 +14,40 @@
  *= require_self
  */
 
+ @import "semantic-ui";
+
+.center-container {
+  width: 100% !important;
+  height: 100vh !important;
+}
+
+ .center-position {
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: auto;
+}
+
+.centered {
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: auto;
+}
+
+.flex-me {
+  display: flex !important;
+}
+
+.ui.menu:first-child {
+  margin-top: auto;
+}
+
+.footer {
+  vertical-align: bottom;
+}

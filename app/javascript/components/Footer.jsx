@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div className="ui inverted vertical footer segment">
+    <div className="ui footer">
       All Rights Reserved
     </div>
   );

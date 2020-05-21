@@ -1,5 +1,6 @@
 import {
   LIST_ITEMS,
+  FETCH_ITEMS,
   PAYMENT_TRANSACTION,
   PAYMENT_FAILED,
   CHECKOUT_LOADER
@@ -16,24 +17,22 @@ export const listItems = () => async dispatch => {
   dispatch({ type: LIST_ITEMS, payload: response })
 };
 
-export const fetchItems = () => async(dispatch, getState) => {
-  console.log(getState().items);
-};
-
 export const processPayment = (formValues) => (dispatch, getState) => {
   dispatch({ type: CHECKOUT_LOADER, payload: { checkoutLoading: true } });
   const amount = getState().items.totalAmount * 100;
-  console.log(amount);
+
   const creditCard = formValues.card;
   const cvc = formValues.cvc;
+  const exp_month = parseInt(formValues.month);
+  const exp_year = parseInt(formValues.year);
 
   const data = JSON.stringify({
     'data': {
       'attributes': {
         'details': {
           'card_number': creditCard,
-          'exp_month': 2,
-          'exp_year': 24,
+          'exp_month': exp_month,
+          'exp_year': exp_year,
           'cvc': cvc
         },
         'type': 'card'

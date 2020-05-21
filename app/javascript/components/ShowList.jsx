@@ -1,13 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchItems } from '../packs/src/actions';
 
 class ShowList extends React.Component {
-  componentDidMount() {
-    this.props.fetchItems()
-  };
-
   renderItems() {
+    if (this.props.items.length == 0 ) {
+      return (
+        <tr className="ui segment">
+          <td colSpan='3' rowSpan='5' className="ui active dimmer">
+            <div className="ui text loader">Loading...</div>
+          </td>
+        </tr>
+      );
+    };
+
     if (this.props.items.items) {
       return this.props.items.items.map(item => {
         return (
@@ -43,11 +48,9 @@ class ShowList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.items.totalAmount);
   return {
-    items: state.items,
-    totalAmount: state.items.totalAmount
+    items: state.items
   }
 };
 
-export default connect(mapStateToProps, { fetchItems } )(ShowList);
+export default connect(mapStateToProps, { } )(ShowList);

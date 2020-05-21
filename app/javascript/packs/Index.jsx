@@ -3,12 +3,9 @@ import { render } from "react-dom";
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery';
-import Popper from 'popper.js';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 import App from '../components/App';
+import Header from '../components/Header';
 import reducers from './src/reducers';
 import ReactDOM from 'react-dom';
 
@@ -19,7 +16,6 @@ const store = createStore(
 );
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log(store.getState());
   ReactDOM.render(
     <Provider store={store}>
       <App />
